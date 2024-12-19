@@ -16,6 +16,11 @@ public class GatewayApplication {
 		System.out.println("启动完成");
 		// todo tip io.netty.util.ResourceLeakDetector.reportUntracedLeak need breakPoints,
 		//  The memory leak can be reproduced in about a minute or so
+		// todo com.hello.filter.RequestBodyLogGlobalFilter.requestBodyStoreToExchange serverRequest.bodyToMono(byte[].class) netty leak? when throw LimitedDataBufferList.raiseLimitException
+		// io.netty.util.ResourceLeakDetector.reportUntracedLeak will print the memory leak log、
+		// invoke track->serverRequest.bodyToMono(byte[].class)
+		// -> AbstractDataBufferDecoder.decodeToMono
+		// -> ByteArrayDecoder
 		RestTemplate restTemplate = new RestTemplate();
 		while (true) {
 			try {

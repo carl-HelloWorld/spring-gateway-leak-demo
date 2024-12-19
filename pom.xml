@@ -2,63 +2,88 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
-	<groupId>com.neo</groupId>
-	<artifactId>spring-cloud-parent</artifactId>
-	<version>2.0.0.BUILD-SNAPSHOT</version>
+    <groupId>com.hello</groupId>
+    <artifactId>spring-cloud-parent</artifactId>
+    <version>2.0.0.BUILD-SNAPSHOT</version>
 
-	<modules>
-		<module>spring-cloud-gateway</module>
-		<module>spring-cloud-eureka</module>
-		<module>spring-cloud-producer</module>
+    <modules>
+        <module>spring-cloud-gateway</module>
+        <module>spring-cloud-eureka</module>
+        <module>spring-cloud-producer</module>
+    </modules>
 
-	</modules>
+    <packaging>pom</packaging>
+    <name>Spring-cloud-gateway-demo</name>
+    <description>Demo project for Spring Boot</description>
 
-	<packaging>pom</packaging>
-	<name>Spring-cloud-gateway-demo</name>
-	<description>Demo project for Spring Boot</description>
+    <properties>
+        <spring-boot.version>2.3.12.RELEASE</spring-boot.version>
+        <spring-cloud.version>Hoxton.SR12</spring-cloud.version>
+        <junit.version>4.13.1</junit.version>
+        <spring-boot-starter-test.version>2.4.13</spring-boot-starter-test.version>
+        <spring-web.version>5.2.16.RELEASE</spring-web.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+    </properties>
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.1.RELEASE</version>
-    </parent>
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-parent</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Finchley.RELEASE</version>
+                <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
-	</properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>false</optional>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-properties-migrator</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-    </dependencies>
-
+    <build>
+        <finalName>spring-cloud-parent</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+                <!--加入下面两项配置后，maven打包时才会把第三方jar包一起打入-->
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <includeSystemScope>true</includeSystemScope>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

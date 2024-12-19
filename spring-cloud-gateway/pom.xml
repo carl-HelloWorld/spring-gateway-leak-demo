@@ -1,33 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<parent>
-		<groupId>com.neo</groupId>
-		<artifactId>spring-cloud-parent</artifactId>
-		<version>2.0.0.BUILD-SNAPSHOT</version>
-	</parent>
 	<modelVersion>4.0.0</modelVersion>
-
+	<groupId>com.hello</groupId>
 	<artifactId>spring-cloud-gateway</artifactId>
 	<packaging>jar</packaging>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-gateway</artifactId>
-				<version>2.0.0.RELEASE</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
+	<parent>
+		<groupId>com.hello</groupId>
+		<artifactId>spring-cloud-parent</artifactId>
+		<version>2.0.0.BUILD-SNAPSHOT</version>
+	</parent>
 
 	<dependencies>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-gateway</artifactId>
-        </dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-gateway</artifactId>
+		</dependency>
 
 		<!--<dependency>-->
 			<!--<groupId>org.springframework.cloud</groupId>-->
@@ -52,21 +41,53 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-beans</artifactId>
-            <version>5.0.5.RELEASE</version>
-            <scope>compile</scope>
-        </dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-logging</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>
+		<finalName>spring-cloud-gateway</finalName>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skipTests>true</skipTests>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${spring-boot.version}</version>
+				<!--加入下面两项配置后，maven打包时才会把第三方jar包一起打入-->
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<includeSystemScope>true</includeSystemScope>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

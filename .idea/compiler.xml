@@ -15,7 +15,7 @@
     <bytecodeTargetLevel>
       <module name="spring-cloud-eureka" target="1.8" />
       <module name="spring-cloud-gateway" target="1.8" />
-      <module name="spring-cloud-parent" target="1.8" />
+      <module name="spring-cloud-gateway-demo" target="1.8" />
       <module name="spring-cloud-producer" target="1.8" />
     </bytecodeTargetLevel>
   </component>
